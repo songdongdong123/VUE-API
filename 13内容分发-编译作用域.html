@@ -8,6 +8,7 @@
 </head>
 <body>
     <div id="app">
+        <div v-bind:foo='foo'>{{foo}}</div>
         <!--错误的写法-->
         <!--someChildProperty 是子组件的属性，下面的写法，不会如预期那样工作。父组件模板不应该知道子组件的状态。-->
         <!--<child-component v-show="someChildProperty"></child-component>-->
@@ -27,7 +28,7 @@
         var app = new Vue({
             el:"#app",
             data:{
-
+                foo:'123'
             }
         })
     </script>

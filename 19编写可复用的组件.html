@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <my-component
+    
+        >
+        <a href="">aaaa</a>
+        <p slot="main-text">Hello!</p>
+        </my-component>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('my-component', {
+        template: `<button v-bind:foo="foo"  v-bind:bar="bar" v-on:click="doThat">
+            <slot name='icon'></slot>
+            <slot name='main-text'></slot>
+            </button>`,
+        data:function(){
+            return{
+                foo:123,
+                bar:456,
+            }
+        },
+         methods:{
+                    doThis:function(){
+                        console.log(123);
+                    },
+                    doThat:function(){
+                        console.log(456);
+                    }
+                }
+        })
+        var app = new Vue({
+            el:"#app",
+            data:{
+                foo:'baz',
+                bar:'qux'
+            },
+            methods:{
+                dothis:function(){
+                    console.log(1233);
+                },
+                dothat:function(){
+                    console.log(45666);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
