@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+   <div id="app" class="">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation">
+                    <a href="javascript:void(0)" @click="currentView='manage-posts'">Manage Posts</a>
+                    </li>
+                    <li role="presentation">
+                    <a href="javascript:void(0)" @click="currentView='create-post'">Create Post</a>
+                    </li>
+                    <li role="presentation">
+                    <a href="javascript:void(0)" @click="currentView='anther-post'">Anther Post</a>
+                    </li>
+                </ul>
+            </nav>
+        <h3 class="text-muted">Admin Panel</h3>
+        </div>
+
+        <div class="container">
+        <!-- render the currently active component/page here -->
+            <component v-bind:is="currentView" keep-alive transition="fade" transition-mode="out-in">
+                <manage-posts>
+                    <template id="manage-template" >
+                        
+                    </template>
+                </manage-posts>
+                <create-post>
+                    <template id="create-template">
+                        
+                    </template>
+                </create-post>
+                <anther-post>
+                    <template>
+                        
+                    </template>
+                </anther-post>
+            </component>
+        </div>
+        </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        // 创建一个子组件
+        Vue.component('manage-posts', {
+            template: `
+                <div>
+                <h1>Manage Posts</h1>
+                <div class="list-group">
+                    <!--在这里可以直接使用-->
+                    <a v-for="post in posts" href="#" class="list-group-item clearfix">
+                    {{ post }}
+                    <span class="pull-right">
+                        <button class="btn btn-xs btn-info">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                    <button class="btn btn-xs btn-warning">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    </span>
+                    </a>
+                </div>
+                </div>
+            `,
+            // 传入一些数据
+            data: function(){
+                return{
+                posts: [
+                    'Vue.js: The Basics',
+                    'Vue.js Components',
+                    'Server Side Rendering with Vue',
+                    'Vue + Firebase'
+                    ]
+                }
+            }
+        });
+        // 创建另一个子组件
+        Vue.component('create-post', {
+            template: `
+                    <div>
+                        <h1>Create Post</h1>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Post title</label>
+                                <div class="col-sm-10">
+                                    <input type="text"class="form-control"placeholder="Post title">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Post body</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control"rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit"class="btn btn-primary">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+            `
+        })
+        Vue.component('anther-post',{
+            template:`
+                <div>
+                    <ul>
+                        <li v-for='item in items'>{{item}}</li>
+                    </ul>
+                </div>
+            `,
+            data:function(){
+                return{
+                    items:['dongdong','xixi','hahahahah']
+                }
+            }
+        })
+       var app = new Vue({
+           el:'#app',
+           data:{
+               posts:['123','234','32452','asdasda'],
+               currentView: 'manage-posts'
+           }
+       })
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input v-model="parentMsg">
+        <br>
+        <child v-bind:initial-Counter="parentMsg">
+        <!--child是父组件-->
+        </child> 
+       <!--   <child v-bind:initial-Counter="counter">
+           
+        </child>  -->
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+       Vue.component('child',{
+        // 1.prop 作为初始值传入后，子组件想把它当作局部数据来用；
+           props: ['initialCounter'],
+           data: function () {
+                return { counter: this.initialCounter }
+             },
+            //  这里是子组件
+           template:"<p>{{counter}}</p>"
+        
+
+        // 2.定义一个计算属性，处理 prop 的值并返回。
+        // props: ['size'],
+        // computed: {
+        // normalizedSize: function () {
+        //     return this.size.trim().toLowerCase()
+        // }
+        // }
+       });
+       var app = new Vue({
+           el:"#app",
+           data:{
+               parentMsg:123
+           }
+       })
+    </script>
+</body>
+</html>

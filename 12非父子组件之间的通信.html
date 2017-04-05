@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+   <div id='app'>
+        <foo></foo>
+        <hr>
+        <bar></bar>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+       // 注册一个空的 Vue 实例，作为 ‘中转站’
+        var eventBus = new Vue({})
+        // foo 组件
+        var foo = {
+            template: '<div><p>这里的count是兄弟组件foo中的 {{fooCount}}</p>' +
+                        '<button @click="addBar">点击改变bar中count：</button></div>',
+            data: function() {
+                return {
+                    fooCount: 0            
+                }
+            },
+            methods: {
+                addBar: function() {
+                    // 触发事件
+                    eventBus.$emit('addBar');    
+                }
+            },
+            mounted: function() {
+                // 在组件 A 创建的钩子中监听事件
+                eventBus.$on('addFoo', function(num) {
+                    this.fooCount +=num;
+                }.bind(this)) 
+                // 这里必须将 this 绑定在组件实例上。如果不使用 bind , 也可以使用箭头函数。
+            }
+        }
+        // bar 组件
+        var bar = {
+            template: '<div><p>这里的count是组件bar中的count {{barCount}}</p>' +
+                        '<button @click="addFoo">点击改变foo中的：count</button></div>',
+            data: function() {
+                return {
+                    barCount: 0
+                }
+            },
+            methods: {
+                addFoo: function() {
+                    // 触发事件，同时传递一个参数
+                    eventBus.$emit('addFoo',2)
+                }
+            },
+            // 在 组件创建的钩子函数中 监听事件
+            mounted: function() {
+                eventBus.$on('addBar', function() {
+                    this.barCount++
+                }.bind(this))
+            }
+        }
+        var vm = new Vue({
+            el: '#app',
+            components: {
+                foo,
+                bar
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       <my-awesome-list :items="items">
+            <!-- 作用域插槽也可以在这里命名 -->
+            <template slot="item" scope="props">
+                <li class="my-fancy-item">{{ props.text }}</li>
+            </template>
+        </my-awesome-list>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('my-awesome-list', {
+        // 作用域插槽是一种特殊类型的插槽，用作使用一个（能够传递数据到）可重用模板替换已渲染元素。
+        // 在子组件中，只需将数据传递到插槽，就像你将 prop 传递给组件一样：
+        template: `
+          <ul>
+            <slot name="item"
+                v-for="item in this.items"
+                :text="item.text">
+                <!-- fallback content here -->
+            </slot>
+        </ul>
+        `,
+        data: function () {
+            return {
+            items:[{text:'c'},{text:'d'},{text:'e'}]
+            }
+        }
+        })
+        var app = new Vue({
+            el:"#app",
+            data:{
+                items:[{text:'a'},{text:'b'},{text:'c'}]
+            }
+        })
+    </script>
+</body>
+</html>

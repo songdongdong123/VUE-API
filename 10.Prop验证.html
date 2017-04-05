@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-model='prentMsg.name'>
+		<!-- demo1 -->
+		<!-- <child v-bind:prop-C='prentMsg.name'>
+			
+		</child> -->
+
+		<!-- demo2 -->
+		<!-- <input type="text" v-model='prentMsg.age'>
+		<child v-for= "item1 in poem":message="item1"></child> -->
+	</div>
+
+	<div id="demo">
+        <child v-for= "item1 in poem" v-bind:message="item1"></child>
+    </div>
+	<script src="node_modules/vue/dist/vue.js"></script>
+	<script>
+		// Vue.component('child',{
+		// 	props:{
+		// 		// 基础类型检测 （`null` 意思是任何类型都可以）
+		// 	    propA: Number,
+		// 	    // 多种类型
+		// 	    propB: [String, Number],
+		// 	    // 必传且是字符串
+		// 	    propC: {
+		// 	      type: String,
+		// 	      required: true
+		// 	    },
+		// 	    // 数字，有默认值
+		// 	    propD: {
+		// 	      type: Number,
+		// 	      default: 100
+		// 	    },
+		// 	    // 数组／对象的默认值应当由一个工厂函数返回
+		// 	    propE: {
+		// 	      type: Object,
+		// 	      default: function () {
+		// 	        return { message: 'hello' }
+		// 	      }
+		// 	    }
+		// 	},
+		// 	// data:function(){
+		// 	// 	return {counter:this.propC}
+		// 	// },
+		// 	// test1
+		// 	// template:"<p>{{propC}}</p>"
+		// 	template:"<p>{{propA}}</p>"+"<p>{{propC}}</p>"
+		// });
+		  Vue.component('child', {
+			  props: {
+			    'time': {    
+			       type: Number,
+			       default: 1000
+			      },
+			    'message' :{
+			        type: Object,
+			        default: function () {
+			        return { message: 'hello' }
+			      }
+			    } 
+			  },
+
+			  template: `
+			  <div>
+			     <h3>{{title}}</h3>
+			     <p>{{ message }}</p>
+			     <i>{{time}}</i>
+			  </div>
+			  `,
+			  data(){
+			     return { title: '越人歌' }
+			  }
+			})
+    var vm = new Vue({
+
+        el: "#demo",
+        data:{
+            poem:['山有木兮木有枝','心悦君兮君不知'],
+            /*age:3000*/
+        }
+    })
+		var app = new Vue({
+			el:"#app",
+			data:{
+				prentMsg:{name:'song',age:123}
+			}
+		})
+	</script>
+</body>
+</html>

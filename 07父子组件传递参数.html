@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--<child message='hello'></child>-->
+        <child my-Message = 'hahah'></child>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('child',{
+            // 声明props
+            // props:['message'],
+            // template:"<span>{{message}}</span>"
+            // 声明props的方式
+            // 如果是驼峰的命名，在使用的时候要使用分隔符来使用
+            props:['myMessage'],
+            template:"<span>{{myMessage}}</span>"
+        })
+        var app = new Vue({
+            el:"#app"
+        })
+    </script>
+</body>
+</html>

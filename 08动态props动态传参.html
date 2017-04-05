@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <input v-model="parentMsg">
+            <br>
+            <!--这里child中v-bind绑定的my-message会接收到由parentMsg传递进来的数据-->
+            <child v-bind:my-message="parentMsg"></child> 
+        </div>
+    </div>
+    <div id="app2">
+        <test v-bind:test-Msg='1'></test>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        var test ={
+            props:["testMsg"],
+            template:"<p>{{testMsg}}</p>"
+        }
+        var app2 = new Vue({
+            el:"#app2",
+            components:{
+                'test':test
+            }
+        })
+        Vue.component('child',{
+            props:["myMessage"],
+            template:"<span>{{myMessage}}</span>"
+        })
+        var app = new Vue({
+            el:"#app",
+            data:{
+                parentMsg:'hahhah'
+            }
+        })
+
+
+    </script>
+</body>
+</html>

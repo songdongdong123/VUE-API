@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+    </div>
+    <div id="app1">
+       <ul>
+            <li is='my-component'></li>
+       </ul>
+    </div>
+
+    <div id="example-2">
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        // 组件的使用步骤：
+        // 1.创建组件；
+        // 2.注册组件；
+        // 3.使用组件。
+
+        // 这里将创建和注册合二为一(全局注册)
+        Vue.component('my-component',{
+            template:"<h1>全局创建的组件</h1>"
+        })
+        // 创建根实例
+        var app = new Vue({
+            el:"#app",
+            data:{
+
+            }
+        })
+
+        // 局部注册
+        var child = {
+            template:"<div>局部注册的模板</div>"
+        }
+        var app1 = new Vue({
+            el:"#app1",
+            components:{
+                'my-component':child
+            }
+        }) 
+
+
+        var data = { counter: 0 }
+        Vue.component('simple-counter', {
+        template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+        // 技术上 data 的确是一个函数了，因此 Vue 不会警告，
+        // 但是我们返回给每个组件的实例的却引用了同一个data对象
+        data: function () {
+            return {
+                counter:0
+            }
+        }
+        })
+        new Vue({
+        el: '#example-2'
+        })
+    </script>
+</body>
+</html>

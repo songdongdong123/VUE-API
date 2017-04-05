@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--错误的写法-->
+        <!--someChildProperty 是子组件的属性，下面的写法，不会如预期那样工作。父组件模板不应该知道子组件的状态。-->
+        <!--<child-component v-show="someChildProperty"></child-component>-->
+        <child-component></child-component>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('child-component', {
+        // 有效，因为是在正确的作用域内
+        template: '<div v-show="someChildProperty">Child</div>',
+        data: function () {
+            return {
+            someChildProperty: true
+            }
+        }
+        })
+        var app = new Vue({
+            el:"#app",
+            data:{
+
+            }
+        })
+    </script>
+</body>
+</html>

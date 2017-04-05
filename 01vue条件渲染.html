@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--v-if和v-else是一对指令，类似if.....else的关系-->
+        <p v-if='false'>yes</p>
+        <p v-else>non</p>
+        <!--v-else 元素必须紧跟在 v-if 或者 v-else-if 元素的后面——否则它将不会被识别。-->
+
+        <!--如果我们需要切换多个元素的时候，我们可以使用<tempalte>这个模板元素，并在上面使用v-if，最终template并不会被渲染到页面上-->
+        <template v-if="ok">
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="请输入用户名" key="0">
+        </template> 
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="请输入邮箱地址" key="1">
+        </template>
+        <input type="button" value="点击切换输入" v-on:click='toggleLoginType'>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                ok:true,
+                loginType:'username'
+            },
+            methods:{
+                 toggleLoginType:function(){
+                    if(this.loginType==='username'){
+                        this.loginType='email';
+                    }else{
+                        this.loginType = 'username';
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

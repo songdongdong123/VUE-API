@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .app{
+            width: 300px;
+            height: 400px;
+            background-color:deeppink;
+        }
+        .test1{
+            width: 200px;
+            height: 100px;
+            background-color: orangered;
+        }
+        .test2{
+            width: 100px;
+            height: 100px;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--这里点击最里面的div的时候，会依次执行test3(),test2(),test1()；由子元素向父元素依次向上冒泡-->
+        <!--下面我们使用事件修饰附来组织事件冒泡-->
+        <!--<div class="app" v-on:click='test1'>
+            <div :class="{test1:isClass}" v-on:click='test2'>
+                <div :class="{test2:isClass}" v-on:click='test3'></div>
+            </div>
+        </div>-->
+
+        <!--VUE中提供了事件修饰符，可以解决事件冒泡的问题-->
+        <div class="app" v-on:click='test1'>
+            <!--这里直接使用v-on:click.stop  来阻止事件冒泡-->
+            <div :class="{test1:isClass}" v-on:click.stop='test2'>
+                <div :class="{test2:isClass}" v-on:click='test3'></div>
+            </div>
+        </div>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                isClass:true
+            },
+            methods:{
+                test1:function(){
+                    console.log(123);
+                },
+                test2:function(){
+                    console.log(456);
+                },
+                test3:function(){
+                    console.log(789);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--可以使用v-on：eventType=method 来绑定事件-->
+        <input type="button" value="点击按钮" v-on:click='test'>
+        <button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                name:'xiaosong'
+            },
+            methods:{
+                test:function(e){
+                    alert('hello word'+this.name);
+                },
+                warn: function (message, event) {
+                    // 现在我们可以访问原生事件对象
+                    if (event) event.preventDefault()
+                    alert(message)
+                }
+            }
+        });
+        // 也可以使用JavaScript那样直接调用
+        app.test();
+    </script>
+</body>
+</html>

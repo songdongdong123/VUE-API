@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       <div class="parent">
+        <child>
+            <!--在父级中，具有特殊属性 scope 的 <template> 元素，-->
+            <!--表示它是作用域插槽的模板。scope 的值对应一个临时变量名，此变量接收从子组件中传递的 prop 对象：-->
+            <template scope="props">
+            <span>hello from parent</span>
+            <span>{{ props.text }}</span>
+            </template>
+        </child>
+        </div>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('child', {
+        // 作用域插槽是一种特殊类型的插槽，用作使用一个（能够传递数据到）可重用模板替换已渲染元素。
+        // 在子组件中，只需将数据传递到插槽，就像你将 prop 传递给组件一样：
+        template: `
+          <div class="child">
+            <slot text="hello from child"></slot>
+         </div>
+        `,
+        data: function () {
+            return {
+            someChildProperty: true
+            }
+        }
+        })
+        var app = new Vue({
+            el:"#app",
+            data:{
+
+            }
+        })
+    </script>
+</body>
+</html>

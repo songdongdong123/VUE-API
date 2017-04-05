@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--在监听键盘事件时，我们经常需要监测常见的键值。 Vue 允许为 v-on 在监听键盘事件时添加按键修饰符： -->
+        <!-- 只有在 keyCode 是 13 时调用 vm.submit() -->
+        <button v-on:keyup.13='submit'>按下enter键</button>
+
+        <!--使用按键的别名，来监听按键事-->
+        <button v-on:keyup.f1='delateTest()'>测试按键别名</button>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{},
+            methods:{
+                submit:function(){
+                    console.log(123);
+                },
+                delateTest:function(){
+                    console.log('测试按键别名');
+                }
+            }
+        })
+        Vue.config.keyCodes.f1=112;
+    </script>
+</body>
+</html>
