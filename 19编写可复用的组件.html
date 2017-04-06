@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p src='../werw'></p>
+        <my-component></my-component>
+    </div>
+    <div id="parent">
+        <test-compent ref="profile"></test-compent>
+    </div>
+     <script src="node_modules/vue/dist/vue.js"></script>
+     <script>
+         Vue.component('my-component',{
+             template:`<p
+             width='400px' 
+             height='400px' 
+             @click='doThis'
+             src='./qq.png'
+             @mouseover='doThat' 
+             ></p>`,
+             data:function(){
+                return {
+                    foo:'test',
+                    bar:'demo'
+                }
+             },
+             methods:{
+                 doThis:function(){
+                     console.log(this.foo)
+                 },
+                 doThat:function(){
+                     console.log(this.bar)
+                 }
+             }
+         });
+         var app = new Vue({
+             el:"#app"
+         });
+
+        //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Vue.component('test-compent',{
+            template:`<div>12344455</div>`
+        })
+        var parent = new Vue({
+            el:"#parent"
+        })
+        var child = parent.$refs.profile;
+        console.log(child);
+     </script>
+</body>
+</html>
